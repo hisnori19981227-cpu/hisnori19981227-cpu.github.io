@@ -1,7 +1,1219 @@
 <!DOCTYPE html>
-  <html lang="ja">
-  <head><meta charset="UTF-8"><title>サイト準備中</title></head>
-  <body>
-  <h1>準備中</h1>
-  </body>
-  </html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>鳥取県 観光データレポート 2023</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700;900&family=Noto+Sans+JP:wght@300;400;500;700&family=Shippori+Mincho:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sand: #e8d5b0;
+    --sand-light: #f5ede0;
+    --sand-dark: #c9a96e;
+    --ocean: #1a3a5c;
+    --ocean-mid: #2a5f8f;
+    --ocean-light: #4a8ab5;
+    --sky: #87ceeb;
+    --accent: #c0392b;
+    --accent-warm: #e67e22;
+    --text-dark: #1a1a1a;
+    --text-mid: #444;
+    --text-light: #777;
+    --white: #fefdfb;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Noto Sans JP', sans-serif;
+    background: var(--white);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* ====== HERO ====== */
+  .hero {
+    min-height: 100vh;
+    background: var(--ocean);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 60px;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 45%;
+    background: linear-gradient(135deg, var(--sand) 0%, var(--sand-dark) 100%);
+    clip-path: polygon(0 40%, 100% 0%, 100% 100%, 0 100%);
+  }
+
+  .hero-dunes {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 180px;
+    background: var(--sand-dark);
+    clip-path: polygon(0 100%, 0 80%, 15% 55%, 30% 70%, 50% 40%, 65% 60%, 80% 45%, 100% 65%, 100% 100%);
+    opacity: 0.6;
+  }
+
+  .hero-waves {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 35%;
+    background: linear-gradient(180deg, #0d2540 0%, var(--ocean) 100%);
+  }
+
+  .hero-wave-line {
+    position: absolute;
+    left: -10%; right: -10%;
+    height: 2px;
+    background: rgba(135, 206, 235, 0.3);
+    border-radius: 50%;
+    transform: scaleX(1.2);
+  }
+  .hero-wave-line:nth-child(1) { top: 20%; width: 120%; }
+  .hero-wave-line:nth-child(2) { top: 35%; opacity: 0.5; }
+  .hero-wave-line:nth-child(3) { top: 50%; opacity: 0.3; }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-label {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 13px;
+    letter-spacing: 6px;
+    color: var(--sky);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(48px, 8vw, 96px);
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.1;
+    letter-spacing: -1px;
+    margin-bottom: 24px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+
+  .hero-title span {
+    color: var(--sand);
+    display: block;
+  }
+
+  .hero-subtitle {
+    font-size: 16px;
+    color: rgba(255,255,255,0.7);
+    font-weight: 300;
+    letter-spacing: 2px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+
+  .hero-year {
+    position: absolute;
+    top: 60px; right: 60px;
+    font-family: 'Shippori Mincho', serif;
+    font-size: 120px;
+    color: rgba(255,255,255,0.06);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -4px;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ====== NAV ====== */
+  nav {
+    background: var(--ocean);
+    padding: 16px 60px;
+    display: flex;
+    gap: 32px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+
+  nav a {
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 1px;
+    transition: color 0.2s;
+    white-space: nowrap;
+  }
+  nav a:hover { color: var(--sand); }
+
+  /* ====== SECTIONS ====== */
+  section {
+    padding: 80px 60px;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 24px;
+    margin-bottom: 56px;
+  }
+
+  .section-number {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 80px;
+    font-weight: 700;
+    color: var(--sand-dark);
+    opacity: 0.4;
+    line-height: 1;
+  }
+
+  .section-title-group h2 {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--ocean);
+    margin-bottom: 4px;
+  }
+
+  .section-title-group p {
+    font-size: 13px;
+    color: var(--text-light);
+    letter-spacing: 2px;
+  }
+
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, var(--sand-dark) 0%, transparent 100%);
+    margin-bottom: 56px;
+  }
+
+  /* ====== BIG NUMBERS ====== */
+  .big-numbers {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2px;
+    background: var(--sand-dark);
+    border: 2px solid var(--sand-dark);
+    margin-bottom: 56px;
+  }
+
+  .big-number-card {
+    background: var(--white);
+    padding: 40px 32px;
+    text-align: center;
+    transition: background 0.2s;
+  }
+
+  .big-number-card:hover {
+    background: var(--sand-light);
+  }
+
+  .big-number-card .num {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 52px;
+    font-weight: 700;
+    color: var(--ocean);
+    line-height: 1;
+    display: block;
+  }
+
+  .big-number-card .unit {
+    font-size: 16px;
+    color: var(--ocean-mid);
+    display: inline;
+  }
+
+  .big-number-card .change {
+    font-size: 13px;
+    color: #27ae60;
+    font-weight: 700;
+    margin: 8px 0 4px;
+    display: block;
+  }
+
+  .big-number-card .label {
+    font-size: 12px;
+    color: var(--text-light);
+    letter-spacing: 1px;
+    display: block;
+  }
+
+  /* ====== TRANSPORT SECTION ====== */
+  .transport-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+  }
+
+  .transport-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .bar-item {
+    display: grid;
+    grid-template-columns: 90px 1fr 60px;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .bar-label {
+    font-size: 12px;
+    color: var(--text-mid);
+    letter-spacing: 0.5px;
+    text-align: right;
+  }
+
+  .bar-track {
+    height: 28px;
+    background: var(--sand-light);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    position: relative;
+    transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+    width: 0%;
+  }
+
+  .bar-fill.car { background: linear-gradient(90deg, var(--ocean) 0%, var(--ocean-mid) 100%); }
+  .bar-fill.bus { background: linear-gradient(90deg, var(--ocean-mid) 0%, var(--ocean-light) 100%); }
+  .bar-fill.train { background: linear-gradient(90deg, var(--accent-warm) 0%, #f39c12 100%); }
+  .bar-fill.plane { background: linear-gradient(90deg, var(--accent) 0%, #e74c3c 100%); }
+  .bar-fill.other { background: linear-gradient(90deg, #95a5a6 0%, #bdc3c7 100%); }
+
+  .bar-pct {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--ocean);
+  }
+
+  .transport-note {
+    background: var(--ocean);
+    color: rgba(255,255,255,0.9);
+    padding: 32px;
+    border-radius: 2px;
+  }
+
+  .transport-note h3 {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 18px;
+    margin-bottom: 16px;
+    color: var(--sand);
+  }
+
+  .transport-note p {
+    font-size: 14px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 12px;
+  }
+
+  .transport-note p:last-child { margin-bottom: 0; }
+
+  /* ====== ORIGIN SECTION ====== */
+  .bg-sand {
+    background: var(--sand-light);
+  }
+
+  .origin-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+
+  .origin-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .origin-item {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
+
+  .origin-item:last-child { border-bottom: none; }
+
+  .origin-name {
+    font-size: 14px;
+    color: var(--text-mid);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .origin-name .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .origin-bar-wrap {
+    width: 120px;
+    height: 6px;
+    background: rgba(0,0,0,0.1);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .origin-bar {
+    height: 100%;
+    border-radius: 3px;
+    background: var(--ocean);
+    transition: width 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+    width: 0%;
+  }
+
+  .origin-pct {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ocean);
+    min-width: 50px;
+    text-align: right;
+  }
+
+  .origin-note {
+    background: white;
+    padding: 32px;
+    border-left: 4px solid var(--sand-dark);
+  }
+
+  .origin-note h3 {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 18px;
+    color: var(--ocean);
+    margin-bottom: 12px;
+  }
+
+  .origin-note p {
+    font-size: 14px;
+    line-height: 1.9;
+    color: var(--text-mid);
+  }
+
+  /* ====== REASONS SECTION ====== */
+  .reasons-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2px;
+    background: var(--sand-dark);
+    border: 2px solid var(--sand-dark);
+  }
+
+  .reason-card {
+    background: var(--white);
+    padding: 36px 28px;
+  }
+
+  .reason-icon {
+    font-size: 36px;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .reason-card h3 {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 18px;
+    color: var(--ocean);
+    margin-bottom: 8px;
+  }
+
+  .reason-card p {
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--text-mid);
+  }
+
+  .reason-card .rank {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--sand);
+    float: right;
+    line-height: 1;
+    margin-left: 8px;
+  }
+
+  /* ====== AGE SECTION ====== */
+  .age-chart {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    height: 200px;
+    margin-bottom: 24px;
+    padding: 0 0 0 20px;
+    border-left: 2px solid var(--sand-dark);
+    border-bottom: 2px solid var(--sand-dark);
+  }
+
+  .age-bar-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+  }
+
+  .age-bar-wrap {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .age-bar {
+    width: 70%;
+    min-height: 4px;
+    border-radius: 2px 2px 0 0;
+    transition: height 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 4px;
+  }
+
+  .age-bar span {
+    font-size: 11px;
+    font-weight: 700;
+    color: white;
+    display: none;
+  }
+
+  .age-label {
+    font-size: 12px;
+    color: var(--text-light);
+    letter-spacing: 0.5px;
+    text-align: center;
+  }
+
+  .age-note {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 32px;
+  }
+
+  .age-note-card {
+    background: var(--sand-light);
+    padding: 24px;
+    border-top: 3px solid var(--ocean);
+  }
+
+  .age-note-card h4 {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 15px;
+    color: var(--ocean);
+    margin-bottom: 8px;
+  }
+
+  .age-note-card p {
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--text-mid);
+  }
+
+  /* ====== INBOUND SECTION ====== */
+  .inbound-hero {
+    background: var(--ocean);
+    padding: 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 40px;
+    align-items: center;
+  }
+
+  .inbound-stat {
+    color: white;
+  }
+
+  .inbound-stat .big {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 72px;
+    font-weight: 700;
+    color: var(--sand);
+    line-height: 1;
+    display: block;
+  }
+
+  .inbound-stat p {
+    font-size: 14px;
+    color: rgba(255,255,255,0.7);
+    line-height: 1.8;
+    margin-top: 12px;
+  }
+
+  .inbound-access {
+    color: white;
+  }
+
+  .inbound-access h3 {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 18px;
+    color: var(--sand);
+    margin-bottom: 16px;
+  }
+
+  .access-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.6;
+  }
+
+  .access-item .icon {
+    font-size: 18px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .country-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+  }
+
+  .country-card {
+    background: var(--sand-light);
+    padding: 24px 16px;
+    text-align: center;
+    border-top: 4px solid var(--ocean);
+    position: relative;
+  }
+
+  .country-card .rank-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 24px;
+    height: 24px;
+    background: var(--ocean);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+  }
+
+  .country-card .flag { font-size: 28px; display: block; margin-bottom: 8px; }
+  .country-card .name { font-size: 13px; color: var(--ocean); font-weight: 700; margin-bottom: 4px; }
+  .country-card .pct { font-family: 'Shippori Mincho', serif; font-size: 22px; font-weight: 700; color: var(--ocean); }
+
+  /* ====== POPULAR SPOTS ====== */
+  .bg-ocean { background: var(--ocean); }
+
+  .spots-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+  }
+
+  .spot-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.12);
+    padding: 28px 24px;
+    transition: background 0.2s, transform 0.2s;
+  }
+
+  .spot-card:hover {
+    background: rgba(255,255,255,0.1);
+    transform: translateY(-4px);
+  }
+
+  .spot-card .spot-rank {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 40px;
+    font-weight: 700;
+    color: var(--sand-dark);
+    line-height: 1;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .spot-card .spot-name {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 16px;
+    color: white;
+    margin-bottom: 8px;
+  }
+
+  .spot-card .spot-desc {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.7;
+  }
+
+  .spots-section .section-title-group h2 { color: var(--sand); }
+  .spots-section .section-number { color: var(--sand-dark); opacity: 0.3; }
+
+  /* ====== MONTHLY SECTION ====== */
+  .monthly-note {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+    margin-top: 40px;
+  }
+
+  .monthly-card {
+    padding: 24px;
+    border-left: 3px solid;
+  }
+
+  .monthly-card.peak { border-color: var(--accent); background: #fdf2f2; }
+  .monthly-card.mid { border-color: var(--accent-warm); background: #fef9f0; }
+  .monthly-card.low { border-color: var(--ocean-light); background: #f0f6fb; }
+
+  .monthly-card h4 {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  .monthly-card.peak h4 { color: var(--accent); }
+  .monthly-card.mid h4 { color: var(--accent-warm); }
+  .monthly-card.low h4 { color: var(--ocean-mid); }
+
+  .monthly-card p {
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--text-mid);
+  }
+
+  /* ====== SOURCE ====== */
+  .source-bar {
+    background: var(--ocean);
+    color: rgba(255,255,255,0.5);
+    font-size: 11px;
+    padding: 24px 60px;
+    letter-spacing: 0.5px;
+    line-height: 1.8;
+  }
+
+  .source-bar strong {
+    color: rgba(255,255,255,0.8);
+  }
+
+  /* ====== RESPONSIVE ====== */
+  @media (max-width: 768px) {
+    .hero { padding: 40px 24px; }
+    nav { padding: 12px 24px; gap: 16px; overflow-x: auto; }
+    section { padding: 60px 24px; }
+    .hero-year { font-size: 60px; top: 24px; right: 24px; }
+    .transport-grid,
+    .origin-grid,
+    .inbound-hero { grid-template-columns: 1fr; }
+    .country-grid { grid-template-columns: repeat(3, 1fr); }
+    .age-note { grid-template-columns: 1fr; }
+    .monthly-note { grid-template-columns: 1fr; }
+    .source-bar { padding: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-waves">
+    <div class="hero-wave-line"></div>
+    <div class="hero-wave-line"></div>
+    <div class="hero-wave-line"></div>
+  </div>
+  <div class="hero-dunes"></div>
+  <div class="hero-year">2023</div>
+  <div class="hero-content">
+    <p class="hero-label">Tourism Data Report</p>
+    <h1 class="hero-title">鳥取県<span>観光データレポート</span></h1>
+    <p class="hero-subtitle">令和５年（2023年）観光入込動態調査 まとめ</p>
+  </div>
+</section>
+
+<!-- NAV -->
+<nav>
+  <a href="#overview">入込客数概要</a>
+  <a href="#transport">交通機関別</a>
+  <a href="#origin">出発地別</a>
+  <a href="#reasons">訪問理由</a>
+  <a href="#age">年代別</a>
+  <a href="#inbound">海外からの流入</a>
+  <a href="#spots">人気スポット</a>
+  <a href="#monthly">月別推移</a>
+</nav>
+
+<!-- SECTION 1: OVERVIEW -->
+<section id="overview">
+  <div class="section-header">
+    <div class="section-number">01</div>
+    <div class="section-title-group">
+      <h2>入込客数 総括</h2>
+      <p>VISITOR OVERVIEW · 令和5年</p>
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="big-numbers">
+    <div class="big-number-card">
+      <span class="num">1,820<span class="unit">万人</span></span>
+      <span class="change">▲ +21.9%（前年比）</span>
+      <span class="label">観光入込客数（実人数）</span>
+    </div>
+    <div class="big-number-card">
+      <span class="num">9,743<span class="unit">万人</span></span>
+      <span class="change">▲ +20.2%（前年比）</span>
+      <span class="label">観光入込客数（延べ人数）</span>
+    </div>
+    <div class="big-number-card">
+      <span class="num">9<span class="unit">割超</span></span>
+      <span class="change">コロナ前の令和元年比</span>
+      <span class="label">回復水準</span>
+    </div>
+    <div class="big-number-card">
+      <span class="num">2.57<span class="unit">地点</span></span>
+      <span class="change">県外観光客1人あたり</span>
+      <span class="label">平均訪問観光地点数</span>
+    </div>
+  </div>
+
+  <p style="font-size:14px; line-height:2; color:var(--text-mid); max-width: 680px;">
+    令和5年（2023年）5月に新型コロナウイルス感染症が5類感染症に移行。各種イベントや祭りが本格的に復活し、
+    観光入込客数は大幅に増加しました。しゃんしゃん祭の4年ぶりの中心市街地での開催などが特に8月（+40.2%）の大幅増加に寄与しています。
+  </p>
+</section>
+
+<!-- SECTION 2: TRANSPORT -->
+<section id="transport" class="bg-sand">
+  <div class="section-header">
+    <div class="section-number">02</div>
+    <div class="section-title-group">
+      <h2>交通機関別 入込客数</h2>
+      <p>TRANSPORT MODE · 県外観光客（実人数）</p>
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="transport-grid">
+    <div>
+      <div class="transport-bars" id="bars">
+        <div class="bar-item">
+          <div class="bar-label">🚗 自家用車</div>
+          <div class="bar-track"><div class="bar-fill car" data-pct="69"></div></div>
+          <div class="bar-pct">69%</div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-label">🚌 貸切バス</div>
+          <div class="bar-track"><div class="bar-fill bus" data-pct="9"></div></div>
+          <div class="bar-pct">9%</div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-label">🚆 列車</div>
+          <div class="bar-track"><div class="bar-fill train" data-pct="10"></div></div>
+          <div class="bar-pct">10%</div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-label">✈️ 飛行機</div>
+          <div class="bar-track"><div class="bar-fill plane" data-pct="7"></div></div>
+          <div class="bar-pct">7%</div>
+        </div>
+        <div class="bar-item">
+          <div class="bar-label">その他</div>
+          <div class="bar-track"><div class="bar-fill other" data-pct="5"></div></div>
+          <div class="bar-pct">5%</div>
+        </div>
+      </div>
+      <p style="margin-top:24px; font-size:12px; color:var(--text-light); letter-spacing:0.5px;">
+        ※ 県内観光客は自家用車が約9割を占める
+      </p>
+    </div>
+
+    <div class="transport-note">
+      <h3>✈️ 空路アクセス</h3>
+      <p>鳥取県には<strong>鳥取空港（コナン空港）</strong>と<strong>米子鬼太郎空港</strong>の2つの空港があります。
+        令和5年は公共交通機関（列車・飛行機）の利用が前年に比べて大幅に増加しました。</p>
+      <p>コロナ禍の5類移行に伴い、公共交通機関利用者が顕著に回復。<br>
+        飛行機：主に東京・大阪便（ANAなど）<br>
+        列車（JR）：山陰本線・因美線・伯備線</p>
+      <h3 style="margin-top:20px;">🚂 JRアクセス</h3>
+      <p>JRの主要路線は山陰本線・因美線・伯備線。鳥取駅・米子駅が主要ターミナル。
+        2023年は列車利用の構成比が大きく増加しており、公共交通利用の回復傾向が見られます。</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: ORIGIN -->
+<section id="origin">
+  <div class="section-header">
+    <div class="section-number">03</div>
+    <div class="section-title-group">
+      <h2>出発地別 入込客数</h2>
+      <p>VISITOR ORIGIN · 実人数ベース</p>
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="origin-grid">
+    <div class="origin-list" id="originList">
+      <div class="origin-item">
+        <div class="origin-name"><span class="dot" style="background:#1a3a5c"></span>県内</div>
+        <div class="origin-bar-wrap"><div class="origin-bar" data-pct="38" style="background:#1a3a5c"></div></div>
+        <div class="origin-pct">38%</div>
+      </div>
+      <div class="origin-item">
+        <div class="origin-name"><span class="dot" style="background:#2a5f8f"></span>近畿地方</div>
+        <div class="origin-bar-wrap"><div class="origin-bar" data-pct="22" style="background:#2a5f8f"></div></div>
+        <div class="origin-pct">約22%</div>
+      </div>
+      <div class="origin-item">
+        <div class="origin-name"><span class="dot" style="background:#4a8ab5"></span>中国地方（他県）</div>
+        <div class="origin-bar-wrap"><div class="origin-bar" data-pct="22" style="background:#4a8ab5"></div></div>
+        <div class="origin-pct">約22%</div>
+      </div>
+      <div class="origin-item">
+        <div class="origin-name"><span class="dot" style="background:#e67e22"></span>関東地方</div>
+        <div class="origin-bar-wrap"><div class="origin-bar" data-pct="8" style="background:#e67e22"></div></div>
+        <div class="origin-pct">約8%</div>
+      </div>
+      <div class="origin-item">
+        <div class="origin-name"><span class="dot" style="background:#c0392b"></span>中部・九州・その他</div>
+        <div class="origin-bar-wrap"><div class="origin-bar" data-pct="10" style="background:#c0392b"></div></div>
+        <div class="origin-pct">約10%</div>
+      </div>
+    </div>
+
+    <div class="origin-note">
+      <h3>📍 発地の特徴</h3>
+      <p>
+        県外客は<strong>近畿・中国地方からの入込みが約8割</strong>を占めており、地理的に近い関西・山陽・島根からの旅行者が中心です。<br><br>
+        近畿地方は約<strong>165万人</strong>（前年比+16.4%）、中国地方は約<strong>165万人</strong>（前年比+16.0%）と、全ての発地で増加しています。<br><br>
+        関東からは飛行機利用が多く、ビジネス目的も含む中長距離の来訪者が増加傾向にあります。
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: REASONS -->
+<section id="reasons" class="bg-sand">
+  <div class="section-header">
+    <div class="section-number">04</div>
+    <div class="section-title-group">
+      <h2>訪問の主な理由</h2>
+      <p>REASONS TO VISIT · 観光目的・動機</p>
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="reasons-grid">
+    <div class="reason-card">
+      <span class="reason-icon">🏜️</span>
+      <span class="rank">1</span>
+      <h3>鳥取砂丘・砂の美術館</h3>
+      <p>日本最大の砂丘として国の天然記念物に指定。年間100万人超が訪れる県のシンボル。砂の彫刻を展示する砂の美術館も人気。</p>
+    </div>
+    <div class="reason-card">
+      <span class="reason-icon">👻</span>
+      <span class="rank">2</span>
+      <h3>水木しげるロード（境港）</h3>
+      <p>「ゲゲゲの鬼太郎」の聖地。全国から漫画ファンが訪れるほか、海外からの人気も高く、177体のブロンズ像が並ぶ商店街。</p>
+    </div>
+    <div class="reason-card">
+      <span class="reason-icon">🔍</span>
+      <span class="rank">3</span>
+      <h3>青山剛昌ふるさと館（北栄町）</h3>
+      <p>「名探偵コナン」の作者・青山剛昌氏の出身地。コナン聖地巡礼として台湾・タイ・韓国など海外からの来訪者が急増。</p>
+    </div>
+    <div class="reason-card">
+      <span class="reason-icon">🏔️</span>
+      <span class="rank">4</span>
+      <h3>大山登山・自然観光</h3>
+      <p>「伯耆富士」と呼ばれる中国地方最高峰。ハイキング・スキーが楽しめ、四季折々の自然景観が人気。周辺のまきばも観光地。</p>
+    </div>
+    <div class="reason-card">
+      <span class="reason-icon">♨️</span>
+      <span class="rank">5</span>
+      <h3>温泉・宿泊（療養・リフレッシュ）</h3>
+      <p>皆生温泉・はわい温泉・三朝温泉など多様な温泉地が充実。都市圏からの日帰り・宿泊旅行の主要目的として定着。</p>
+    </div>
+    <div class="reason-card">
+      <span class="reason-icon">🦀</span>
+      <span class="rank">6</span>
+      <h3>グルメ（カニ・梨・岩ガキなど）</h3>
+      <p>松葉ガニ・岩ガキ・鳥取和牛・二十世紀梨などブランド食材が豊富。食目的の旅行者も多く、訪問理由の重要な要素。</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5: AGE -->
+<section id="age">
+  <div class="section-header">
+    <div class="section-number">05</div>
+    <div class="section-title-group">
+      <h2>年代別 旅行者の傾向</h2>
+      <p>VISITOR AGE DEMOGRAPHICS</p>
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="age-chart" id="ageChart">
+    <div class="age-bar-group">
+      <div class="age-bar-wrap" style="height:180px; justify-content:flex-end; display:flex; flex-direction:column;">
+        <div class="age-bar" data-h="60" style="background: linear-gradient(180deg, var(--ocean) 0%, var(--ocean-mid) 100%);"></div>
+      </div>
+      <div class="age-label">10代<br>以下</div>
+    </div>
+    <div class="age-bar-group">
+      <div class="age-bar-wrap" style="height:180px; justify-content:flex-end; display:flex; flex-direction:column;">
+        <div class="age-bar" data-h="90" style="background: linear-gradient(180deg, var(--ocean) 0%, var(--ocean-mid) 100%);"></div>
+      </div>
+      <div class="age-label">20代</div>
+    </div>
+    <div class="age-bar-group">
+      <div class="age-bar-wrap" style="height:180px; justify-content:flex-end; display:flex; flex-direction:column;">
+        <div class="age-bar" data-h="130" style="background: linear-gradient(180deg, var(--ocean) 0%, var(--ocean-mid) 100%);"></div>
+      </div>
+      <div class="age-label">30代</div>
+    </div>
+    <div class="age-bar-group">
+      <div class="age-bar-wrap" style="height:180px; justify-content:flex-end; display:flex; flex-direction:column;">
+        <div class="age-bar" data-h="160" style="background: linear-gradient(180deg, var(--accent-warm) 0%, #f39c12 100%);"></div>
+      </div>
+      <div class="age-label">40代</div>
+    </div>
+    <div class="age-bar-group">
+      <div class="age-bar-wrap" style="height:180px; justify-content:flex-end; display:flex; flex-direction:column;">
+        <div class="age-bar" data-h="170" style="background: linear-gradient(180deg, var(--accent) 0%, #e74c3c 100%);"></div>
+      </div>
+      <div class="age-label">50代</div>
+    </div>
+    <div class="age-bar-group">
+      <div class="age-bar-wrap" style="height:180px; justify-content:flex-end; display:flex; flex-direction:column;">
+        <div class="age-bar" data-h="155" style="background: linear-gradient(180deg, var(--accent) 0%, #c0392b 100%);"></div>
+      </div>
+      <div class="age-label">60代</div>
+    </div>
+    <div class="age-bar-group">
+      <div class="age-bar-wrap" style="height:180px; justify-content:flex-end; display:flex; flex-direction:column;">
+        <div class="age-bar" data-h="110" style="background: linear-gradient(180deg, #95a5a6 0%, #7f8c8d 100%);"></div>
+      </div>
+      <div class="age-label">70代<br>以上</div>
+    </div>
+  </div>
+
+  <div class="age-note">
+    <div class="age-note-card">
+      <h4>🔥 中核層：40〜60代</h4>
+      <p>最も多い来訪層。子育てが落ち着いた世代や退職前後の世代がドライブ旅行・温泉・グルメを目的に多数来訪。特に50〜60代が主力。</p>
+    </div>
+    <div class="age-note-card">
+      <h4>📱 若年層（20〜30代）の増加</h4>
+      <p>コロナ5類移行後、SNS（Instagram・TikTok）経由の聖地巡礼や体験型観光を求める若年層が増加。コナン・鬼太郎ファンが多い。</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6: INBOUND -->
+<section id="inbound" class="bg-sand">
+  <div class="section-header">
+    <div class="section-number">06</div>
+    <div class="section-title-group">
+      <h2>海外からの流入（インバウンド）</h2>
+      <p>INBOUND TOURISM · 外国人観光客</p>
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="inbound-hero">
+    <div class="inbound-stat">
+      <span class="big">+151%</span>
+      <p>2024年4月の外国人宿泊者数（前年比）。全国最高の伸び率を記録。<br>
+        2019年コロナ前の訪日外国人数は約<strong>13.9万人</strong>（全国38位）。
+        2024年の目標は<strong>外国人宿泊者数27万人</strong>。</p>
+    </div>
+    <div class="inbound-access">
+      <h3>🌏 主要アクセス手段</h3>
+      <div class="access-item"><span class="icon">✈️</span>米子鬼太郎空港 — ソウル・香港・台湾（国際線）</div>
+      <div class="access-item"><span class="icon">✈️</span>鳥取空港（コナン空港） — 国際チャーター便</div>
+      <div class="access-item"><span class="icon">⛴️</span>境港 — 韓国フェリー（環日本海定期貨客船）復便</div>
+      <div class="access-item"><span class="icon">🚢</span>境港 — クルーズ船寄港（規模拡大）</div>
+      <div class="access-item"><span class="icon">🚂</span>2024年10月 米子-ソウル国際定期便 4年ぶり再開（初便満席）</div>
+    </div>
+  </div>
+
+  <div class="country-grid">
+    <div class="country-card">
+      <div class="rank-badge">1</div>
+      <span class="flag">🇰🇷</span>
+      <div class="name">韓国</div>
+      <div class="pct">約25%</div>
+    </div>
+    <div class="country-card">
+      <div class="rank-badge">2</div>
+      <span class="flag">🇭🇰</span>
+      <div class="name">香港</div>
+      <div class="pct">約26%</div>
+    </div>
+    <div class="country-card">
+      <div class="rank-badge">3</div>
+      <span class="flag">🇹🇼</span>
+      <div class="name">台湾</div>
+      <div class="pct">約15%</div>
+    </div>
+    <div class="country-card">
+      <div class="rank-badge">4</div>
+      <span class="flag">🇨🇳</span>
+      <div class="name">中国</div>
+      <div class="pct">約10%</div>
+    </div>
+    <div class="country-card">
+      <div class="rank-badge">5</div>
+      <span class="flag">🇺🇸</span>
+      <div class="name">米国・欧米</div>
+      <div class="pct">約5%</div>
+    </div>
+  </div>
+  <p style="margin-top:16px; font-size:12px; color:var(--text-light);">
+    ※ 国籍別割合は2019年実績（訪日外国人消費動向調査等）を基に掲載。韓国・香港・台湾・中国で上位約80%を占める。
+  </p>
+</section>
+
+<!-- SECTION 7: POPULAR SPOTS -->
+<section id="spots" class="bg-ocean spots-section">
+  <div class="section-header">
+    <div class="section-number">07</div>
+    <div class="section-title-group">
+      <h2>外国人に人気の観光スポット</h2>
+      <p>INBOUND POPULAR SPOTS · 2024年ランキング</p>
+    </div>
+  </div>
+  <div class="divider" style="background: linear-gradient(90deg, var(--sand-dark) 0%, transparent 100%);"></div>
+
+  <div class="spots-grid">
+    <div class="spot-card">
+      <span class="spot-rank">01</span>
+      <div class="spot-name">🏜️ 鳥取砂丘</div>
+      <p class="spot-desc">2年連続1位。英語・韓国語・繁体字すべての言語圏で人気No.1。砂のアクティビティ・ラクダライドが大人気。</p>
+    </div>
+    <div class="spot-card">
+      <span class="spot-rank">02</span>
+      <div class="spot-name">🎨 砂の美術館</div>
+      <p class="spot-desc">砂丘に隣接。世界最大級の砂彫刻美術館として、その独自性から欧米・アジア双方の旅行者に高評価。</p>
+    </div>
+    <div class="spot-card">
+      <span class="spot-rank">03</span>
+      <div class="spot-name">🔍 青山剛昌ふるさと館</div>
+      <p class="spot-desc">名探偵コナンの聖地。台湾・タイ・韓国のアニメファンから熱烈な支持。コナン一色の北栄町も人気。</p>
+    </div>
+    <div class="spot-card">
+      <span class="spot-rank">04</span>
+      <div class="spot-name">👻 水木しげるロード</div>
+      <p class="spot-desc">ゲゲゲの鬼太郎の妖怪たちが並ぶ商店街。境港の特産・カニとのセット観光も定番。</p>
+    </div>
+    <div class="spot-card">
+      <span class="spot-rank">05</span>
+      <div class="spot-name">🐰 白兎神社</div>
+      <p class="spot-desc">因幡の白兎伝説の舞台。日本神話に興味を持つ台湾・香港の旅行者から注目を集める。</p>
+    </div>
+    <div class="spot-card">
+      <span class="spot-rank">06</span>
+      <div class="spot-name">🌸 とっとり花回廊</div>
+      <p class="spot-desc">日本最大級の花の楽園。大山を背景にした絶景が人気で、SNS映えスポットとして話題。</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 8: MONTHLY -->
+<section id="monthly">
+  <div class="section-header">
+    <div class="section-number">08</div>
+    <div class="section-title-group">
+      <h2>月別・季節別の傾向</h2>
+      <p>SEASONAL TRENDS · 月別入込客数</p>
+    </div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="monthly-note">
+    <div class="monthly-card peak">
+      <h4>🔥 ピーク月（8月・5月）</h4>
+      <p>8月は<strong>前年比+40.2%</strong>と最大の増加。しゃんしゃん祭の4年ぶり市街地開催が大きく寄与。<br>
+        5月はゴールデンウィーク需要で毎年上位に。2024年GWも主要観光地で前年超えを記録。</p>
+    </div>
+    <div class="monthly-card mid">
+      <h4>🍁 準ピーク月（11月）</h4>
+      <p>紅葉シーズンで大山・奥大山への来訪が増加。カニ漁解禁（11月）と重なりグルメ目的の旅行者が急増。松葉ガニの本場として宿泊需要が高まる。</p>
+    </div>
+    <div class="monthly-card low">
+      <h4>❄️ オフシーズン（1〜2月）</h4>
+      <p>積雪の影響で観光客は少なめだが、大山スキーや三朝温泉など冬ならではの魅力も。カニ・温泉の組み合わせで宿泊者数の底上げが続く。</p>
+    </div>
+  </div>
+</section>
+
+<!-- SOURCE -->
+<div class="source-bar">
+  <strong>データ出典：</strong>
+  鳥取県観光戦略課「令和5年観光客入込動態調査結果」／観光庁「宿泊旅行統計調査」／
+  Fun Japan Communications「鳥取県インバウンドデータ」／やまとごころ.jp（外国人宿泊者統計）／
+  訪日ラボ・口コミコム「インバウンド人気観光地ランキング鳥取県編（2024年）」<br>
+  <strong>注記：</strong> 年代別割合・訪問理由の順位は公開データおよびインバウンド調査を参考に作成。一部推計を含む。
+</div>
+
+<script>
+  // Animate bars on scroll
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // transport bars
+        entry.target.querySelectorAll('.bar-fill[data-pct]').forEach(el => {
+          el.style.width = el.dataset.pct + '%';
+        });
+        // origin bars
+        entry.target.querySelectorAll('.origin-bar[data-pct]').forEach(el => {
+          el.style.width = el.dataset.pct + '%';
+        });
+        // age bars
+        entry.target.querySelectorAll('.age-bar[data-h]').forEach(el => {
+          el.style.height = el.dataset.h + 'px';
+        });
+      }
+    });
+  }, { threshold: 0.2 });
+
+  document.querySelectorAll('section').forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
